@@ -36,3 +36,9 @@ Aruzhan
 - Add REST API (Django REST Framework)
 - Add dark/light mode switch
 
+## Screenshots
+![Login page](screenshots/login.png)
+![Tasks page](screenshots/tasks.png)
+![New tasks page](screenshots/new_task.png)
+![SignUp page](screenshots/signup.png)
+![Login2 page](screenshots/login_after_signup.png)
