@@ -1,0 +1,36 @@
+{% extends 'base.html' %}{% block content %}
+<div class="d-flex justify-content-between mb-3">
+  <h3>Your tasks</h3>
+  <a class="btn btn-success" href="{% url 'task_create' %}">+ New</a>
+</div>
+
+<form class="row g-2 mb-3">
+  <div class="col-auto">
+    <select class="form-select" name="status" onchange="this.form.submit()">
+      <option value="">All</option>
+      <option value="open" {% if request.GET.status == 'open' %}selected{% endif %}>Open</option>
+      <option value="done" {% if request.GET.status == 'done' %}selected{% endif %}>Done</option>
+    </select>
+  </div>
+</form>
+
+<ul class="list-group">
+  {% for t in tasks %}
+  <li class="list-group-item d-flex justify-content-between">
+    <div>
+      <a href="{% url 'task_toggle' t.id %}" class="me-2">
+        {% if t.is_completed %}✅{% else %}⬜{% endif %}
+      </a>
+      <strong{% if t.is_completed %} class="text-decoration-line-through text-muted"{% endif %}>
+        {{ t.title }}
+      </strong>
+    </div>
+    <form method="post" action="{% url 'task_delete' t.id %}">{% csrf_token %}
+      <button class="btn btn-sm btn-outline-danger">Delete</button>
+    </form>
+  </li>
+  {% empty %}
+  <li class="list-group-item">Пока задач нет</li>
+  {% endfor %}
+</ul>
+{% endblock %}
